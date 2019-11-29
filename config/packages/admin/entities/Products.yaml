@@ -1,0 +1,14 @@
+easy_admin:
+    entities:
+        Products:
+            class: App\Entity\Products
+            list:
+                fields:
+                    - "Enabled"
+                    - "name"
+                    - "Price"
+                    - "created_at"
+                    - "id"
+                    - "subcategory"
+                    - "tags"
+                    - "sku"

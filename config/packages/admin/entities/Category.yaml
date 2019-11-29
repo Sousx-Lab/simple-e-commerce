@@ -1,0 +1,9 @@
+easy_admin:
+    entities:
+        Category:
+            class: App\Entity\Category
+            list:
+                fields: 
+                    - "name"
+                    - "subcategory" 
+                    - "id"

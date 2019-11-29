@@ -1,0 +1,4 @@
+easy_admin:
+    list:
+        max_results: 30
+    site_name: 'Guitares Shop.'

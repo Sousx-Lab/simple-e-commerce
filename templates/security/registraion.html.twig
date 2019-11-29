@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block title %}Créer votre compte Guitars Shop{% endblock %}
+{% block body %}
+<div class="d-flex justify-content-center mt-4">
+    <h3>Créer votre compte Guitars Shop</h3>
+</div>
+{{form_start(form)}}
+   <div class="d-flex justify-content-center mt-4">
+    <div class="col-md-4">
+        <div class="col md-4">{{form_row(form.username, {'label': 'Nom', 'required': true, 'attr': {'placeholder': 'Votre nom d\'utilisateur'}})}}</div>
+        <div class="col md-4">{{form_row(form.email, {'label': 'Email', 'required': true, 'attr': {'placeholder': 'Votre Email'}})}}</div>
+        <div class="col md-4">{{form_row(form.password, {'label': 'Mot de passe', 'required': true, 'attr': {'placeholder': 'Votre Mot de passe'}})}}</div>
+        <div class="col md-4">{{form_row(form.confirmPassword, {'label': 'Confirmer mot de passe', 'required': true, 'attr': {'placeholder': 'Confirmer le mot de passe'}})}}</div>
+            <button class="btn btn-primary">Inscription !</button>
+        </div>
+    </div>
+
+    {{form_end(form)}}
+{% endblock %}

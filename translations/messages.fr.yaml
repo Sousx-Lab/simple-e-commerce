@@ -1,0 +1,16 @@
+#Entity Translation
+Products: Produits
+Category: Catégories
+SubCategory : Sous-Catégories
+User: Utilisateurs
+
+#attr Translation
+Enabled: Activé
+Name: Nom
+Price: Prix
+Created at: Date de création
+Updated at: Date de mise jour
+Subcategory: Sous-Catégorie
+Username: Nom d'utilisateur
+Password: Mot de passe
+Roles: Roles
