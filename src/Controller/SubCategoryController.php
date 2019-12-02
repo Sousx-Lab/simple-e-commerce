@@ -20,13 +20,11 @@ class SubCategoryController extends AbstractController
     }
 
     /**
-     * @param Request $request
      * @Route("/category/{slug}-{id}", name="subcategories.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function index(Request $request):Response
+    public function index(int $id):Response
     {
-      $id = $request->get('id');
       $subCategories = $this->repository->findSubCategory($id);
       return $this->render('categories/subcategory.html.twig',[
         'subcategories' => $subCategories

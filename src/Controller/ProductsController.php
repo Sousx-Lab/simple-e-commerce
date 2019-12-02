@@ -24,9 +24,8 @@ class ProductsController extends AbstractController
      * @Route("/products/{slug}-{id}", name="products.index", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function index(Request $request):Response
+    public function index(int $id):Response
     {
-      $id = $request->get('id');
       $products = $this->repository->findByCategory($id);
       return $this->render('products/index.html.twig',[
         'products' => $products

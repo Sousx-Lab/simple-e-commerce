@@ -9,6 +9,7 @@
         {% block stylesheets %}
         <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" crossorigin="anonymous"> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"/>
         {% endblock %}
         </head>
         <body>
@@ -27,7 +28,14 @@
                     </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a href="" class="nav-link">Se déconnecter</a>
+                                <a href="{{ path ('cart.index')}}" class="nav-link">Panier
+                                    <i class="fas fa-shopping-cart"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{path ('login') }}" class="nav-link">Se connecter
+                                    <i class="fas fa-user"></i>
+                                </a>
                             </li>
                         </ul>     
                 </div>
