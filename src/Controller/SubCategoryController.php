@@ -20,6 +20,7 @@ class SubCategoryController extends AbstractController
     }
 
     /**
+     * @param int $id
      * @Route("/category/{slug}-{id}", name="subcategories.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */

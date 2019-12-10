@@ -1,0 +1,12 @@
+enabled: Activé
+name: Nom
+price: Prix
+pictures : Images
+created_at: Date de création
+updated_at: Date de mise jour
+subcategory: Sous-Catégorie
+username: Nom d'utilisateur
+password: Mot de passe
+roles: Roles
+isenabled: Activé
+isconfirmed: Confirmé

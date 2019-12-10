@@ -14,6 +14,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    const STATUS_DISABLED = false;
+    const STATUS_ENABLED = true;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -23,8 +26,8 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank
-     * @Assert\Length(min=4, max=50)
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Length(min=4, minMessage="Le nom d'utilisateur doit faire au moins 4 caractère", max=50)
+     * @ORM\Column(type="string", length=180)
      */
     private $username;
 
@@ -43,16 +46,32 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @Assert\NotBlank
-     * @Assert\Length(min=4, minMessage="Le mot de passe doit faire un minimum 4 caractères", max=250)
+     * @Assert\Length(min=4, minMessage="Le mot de passe doit faire au moins 4 caractères", max=250)
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
      * @var string
+     * @Assert\NotBlank
      * @Assert\EqualTo(propertyPath="password", message="Veuillez confirmer le même mot de passe")
      */
     private $confirmPassword;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $uid;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $isEnabled;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isConfirmed;
 
 
     public function getId(): ?int
@@ -143,7 +162,6 @@ class User implements UserInterface
 
     /**
      * Get the value of confirmPassword
-     *
      * @return string
      */ 
     public function getConfirmPassword()
@@ -162,6 +180,41 @@ class User implements UserInterface
     {
         $this->confirmPassword = $confirmPassword;
 
+        return $this;
+    }
+
+    public function getUid(): ?string
+    {
+        return $this->uid;
+    }
+
+    public function setUid(): self
+    {
+        $uid = uniqid();
+        $this->uid = $uid;
+        return $this;
+    }
+
+    public function getIsEnabled(): ?bool
+    {
+        return $this->isEnabled;
+    }
+
+    public function setIsEnabled(bool $isEnabled): self
+    {
+        $this->isEnabled = $isEnabled;
+
+        return $this;
+    }
+
+    public function getIsConfirmed(): ?bool
+    {
+        return $this->isConfirmed;
+    }
+
+    public function setIsConfirmed(bool $isConfirmed): self
+    {
+        $this->isConfirmed = $isConfirmed;
         return $this;
     }
 }

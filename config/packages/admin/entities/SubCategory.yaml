@@ -3,7 +3,8 @@ easy_admin:
         SubCategory:
                 class: App\Entity\SubCategory
                 list:
-                    fields: 
+                    fields:
+                        - "id"
                         - "name"
                         - "Category"
                         - "products" 

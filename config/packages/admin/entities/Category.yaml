@@ -3,7 +3,12 @@ easy_admin:
         Category:
             class: App\Entity\Category
             list:
-                fields: 
-                    - "name"
-                    - "subcategory" 
+                fields:
                     - "id"
+                    - { property: 'picture', type: 'image', base_path : '/media/category'}
+                    - "name"
+                    - "subcategory"
+            form:
+                fields:
+                    - { property: 'imgfile', type: 'vich_image', label: 'Image'}
+                    - "name"

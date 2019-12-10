@@ -19,7 +19,7 @@ class ProductsRepository extends ServiceEntityRepository
         parent::__construct($registry, Products::class);
     }
 
-    public function findByCategory(int $id)
+    public function findBySubCategory(int $id)
     {
         return $this->createQueryBuilder('p')
                     ->where('p.subcategory = :subcategory')

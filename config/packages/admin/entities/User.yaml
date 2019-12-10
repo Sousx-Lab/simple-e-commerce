@@ -3,7 +3,9 @@ easy_admin:
         User:
             class: App\Entity\User
             list:
-                fields: 
+                fields:
+                    - "isEnabled"
+                    - "isConfirmed"
                     - "username"
                     - "roles" 
-                    - "password"
+                    - "uid"

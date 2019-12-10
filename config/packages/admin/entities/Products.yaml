@@ -4,11 +4,32 @@ easy_admin:
             class: App\Entity\Products
             list:
                 fields:
+                    - "id"
                     - "Enabled"
+                    - { property: 'picture.filename', type: 'image', base_path: '/media/products/' }
                     - "name"
                     - "Price"
-                    - "created_at"
+                    - { property: 'created_at', type: 'date'}
+                    - "tags"
+                    - "subcategory"
+                    - "sku"
+            show:
+                fields:
                     - "id"
+                    - "Enabled"
+                    - { property: 'picture.filename', type: 'image',base_path: '/media/products/' }
+                    - "name"
+                    - "Price"
+                    - { property: 'created_at', type: 'date'}
+                    - "tags"
+                    - "subcategory"
+                    - "sku"
+            form:
+                fields:
+                    - { property: 'Enabled', type: 'checkbox'}
+                    - "name"
+                    - { property: 'Price', type: 'integer'}
                     - "subcategory"
                     - "tags"
-                    - "sku"
+                    - { property: 'sku', type: 'integer'}
+                    - { property: 'pictureFiles', type: 'collection', label: 'Image', type_options: { entry_type: 'App\Form\ProductsType'} }

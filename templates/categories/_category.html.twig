@@ -1,5 +1,12 @@
 <div class="card mb-4">
     <img src="" alt="" style="width: 100%; height:auto;">
+    {% if category.picture %}
+    <a href="{{path ('subcategories.show', {slug: category.slug, id: category.id})}}">
+    <img src="{{ vich_uploader_asset (category, 'imgfile')}}" alt="" style="width: 100%; height:auto;">
+    </a>
+    {% else %}
+    <img src="" alt="" style="width: 100%; height:auto;">
+    {% endif %}
         <img src="" alt="" style="width: 100%; height:auto;">
             <div class="card-body">
                 <h5 class="card-title">

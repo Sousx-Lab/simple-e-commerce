@@ -2,3 +2,20 @@ easy_admin:
     list:
         max_results: 30
     site_name: 'Guitares Shop.'
+    design:
+        menu:
+            - label: 'Produits'
+              icon: 'cart'
+              children:
+                - { entity: 'Products', icon: 'item', default: true}
+            - label: 'Category'
+              icon: 'tag'
+              children:
+                - { entity: 'Category', icon: 'tag'}
+                - { entity: 'SubCategory', icon: 'tag'}
+            - label: 'User'
+              icon : 'user'
+              children:
+                - { entity: 'User', icon: 'user' }
+    formats:
+        date: 'd/m/Y'

@@ -32,14 +32,22 @@
                                     <i class="fas fa-shopping-cart"></i>
                                 </a>
                             </li>
+                            {% if app.user %}
+                            <li class="nav-item">
+                                <a href="{{path ('logout') }}" class="nav-link">Bonjour {{app.user.username}}
+                                    <i class="fas fa-user"></i>
+                                </a>
+                            </li>
+                            {% else %}
                             <li class="nav-item">
                                 <a href="{{path ('login') }}" class="nav-link">Se connecter
                                     <i class="fas fa-user"></i>
                                 </a>
                             </li>
-                        </ul>     
-                </div>
-            </nav>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
             {% block body %}{% endblock %}
             {% block javascripts %}
             <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
