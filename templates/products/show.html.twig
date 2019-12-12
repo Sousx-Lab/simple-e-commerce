@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% block title product.name %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="container mt-4">
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-md-8">
+                {% if product.pictures is empty %}
+                <img src="/img/empty.jpg" alt="card-img-top" style="width: 100%; height:auto;">
+                {% else %}
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for picture in product.pictures %}
+                        {% if loop.first %}
+                        <div class="carousel-item active">
+                            <img src="{{ vich_uploader_asset (product.picture, 'imgfile')}}" class=""
+                                alt="">
+                           </div>
+                           {% endif %}
+                           <div class="carousel-item">
+                                <img src="{{ vich_uploader_asset (product.picture, 'imgfile')}}" class=""
+                                    alt="">
+                               </div>                    
+                        {% endfor %}
+                        </div>
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <i class="far fa-arrow-alt-circle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <i class="far fa-arrow-alt-circle-right"></i>
+                        <span class="sr-only">Next</span>
+                     </a>
+                  </div>
+                </div>
+                {% endif %}
+                <div class="col ml-4">
+                    <div class="text-primary" style="font-size: 3rem; font-weight:bold;">{{ product.formattedPrice }}</div>
+                    <div class="row">{% include "cart/_form.cart.html.twig" %}</div>
+                  </div>
+                </div>
+            </div>
+    </div>
+<div class="container mt-4">
+    <p>
+    </p>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Caractéristiques</h2>
+            <table class="table table-striped">
+                <tr>
+                    <td>Surface habitable</td>
+                </tr>
+                <tr>
+                    <td>Pièces</td>
+                </tr>
+                <tr>
+                    <td>Chambres</td>
+                </tr>
+                <tr>
+                    <td>Etage</td>
+                </tr>
+                <tr>
+                    <td>Chauffage</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <h2>Spécificités</h2>
+            <ul class="list-group">
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

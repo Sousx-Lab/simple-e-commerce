@@ -8,6 +8,14 @@
     <h1>Votre panier</h1>
 </div>
  <div class="container">
+        {% for message in app.flashes('notice') %}
+        <div class="alert alert-warning mt-4">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message }}
+        </div>
+        {% endfor %}
      {% if items %}
         <table class="table">
             <thead>

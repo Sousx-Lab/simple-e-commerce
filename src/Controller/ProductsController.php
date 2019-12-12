@@ -26,14 +26,33 @@ class ProductsController extends AbstractController
      * @Route("/products/{slug}-{id}", name="products.index", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function index(Products $products, int $id): Response
+    public function index(int $id): Response
     {
       $products = $this->repository->findBySubCategory($id);
-      if($products === null ){
-        throw new NotFoundHttpException('Aucun article dans cette catégorie');
+      if(!$products){
+        throw $this->createNotFoundException("Aucun article dans cette catégorie");
       }
       return $this->render('products/index.html.twig',[
         'products' => $products
       ]);
+    }
+
+    /**
+     * @param Products $products
+     * @Route("/product/{slug}-{id}", name="product.show", requirements={"slug": "[a-z0-9\-]*"})
+     * @return Response
+     */
+    public function show(Products $product, string $slug)
+    {
+      if($product->getSlug() !== $slug){
+        return $this->redirectToRoute('product.show', [
+          'id'   => $product->getId(),
+          'slug' => $product->getSlug()
+        ], 301);
+      }
+      return $this->render('products/show.html.twig', [
+        'product' => $product,
+      ]);
+
     }
 }

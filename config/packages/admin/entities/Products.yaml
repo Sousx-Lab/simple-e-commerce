@@ -32,4 +32,4 @@ easy_admin:
                     - "subcategory"
                     - "tags"
                     - { property: 'sku', type: 'integer'}
-                    - { property: 'pictureFiles', type: 'collection', label: 'Image', type_options: { entry_type: 'App\Form\ProductsType'} }
+                    - { property: 'pictureFiles', type: 'collection', label: 'Image', multiple : 'multiple', accept: 'image/*', type_options: {entry_type : 'file'}}

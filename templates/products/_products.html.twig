@@ -13,22 +13,18 @@
             <div class="row no-gutters">
                 <div class="col-md-4">
                     {% if product.picture %}
+                    <a href="{{path ('product.show', {slug: product.slug, id: product.id})}}">
                     <img src="{{ vich_uploader_asset (product.picture, 'imgfile')}}" alt="{{product.name}}" style="width:20%; height:auto; display:block; margin:auto;">
+                    </a>
                     {% endif %}
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">{{product.name}}</h5>
+                        <h5 class="card-title">
+                            <a href="{{ path ('product.show', {slug: product.slug, id: product.id})}}">{{product.name}}</h5></a>
                         <p class="card-text">{{product.tags}}</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-
-                        <form method="post" action="{{ path ('cart.add')}}">
-                            <input type="hidden" name="panier" value="{{ product.id }}">
-                            <button type="submit" class="btn btn-success float-right mb-2">
-                                <i class="fas fa-shopping-cart mr-1"></i>
-                                Ajouter
-                            </button>
-                        </form>
+                        <p class="card-text"><small class="text-muted">caractéristique...</small></p>
+                        {% include "cart/_form.cart.html.twig" %}
                     </div>
                 </div>
             </div>

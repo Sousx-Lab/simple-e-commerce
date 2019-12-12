@@ -6,7 +6,14 @@ use App\Repository\ProductsRepository;
 
 class CartService {
 
+    /**
+     * @var SessionInterface
+     */
     protected $session;
+
+    /**
+     * @var ProductsRepository
+     */
     protected $productsRepository;
 
     public function __construct(SessionInterface $session, ProductsRepository $productsRepository)
@@ -77,5 +84,15 @@ class CartService {
             $total += $item['product']->getPrice() * $item['quantity'];
         }
         return $total;
+    }
+
+    public function getAllItems(): ?int
+    {
+        $panier = $this->getFullCart();
+        $countItems = 0;
+        foreach($panier as $item){
+            $countItems += $item['quantity'];
+        }
+        return $countItems;
     }
 }

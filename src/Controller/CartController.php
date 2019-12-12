@@ -12,22 +12,24 @@ class CartController extends AbstractController
 {
     private $session;
 
-    public function __construct(SessionInterface $session)
+    private $cartService;
+
+    public function __construct(SessionInterface $session, CartService $cartService)
     {
         $this->session = $session;
+        $this->cartService = $cartService;
         
     }
 
     /**
      * @Route("/panier", name="cart.index")
      */
-    public function index(CartService $cartService)
+    public function index()
     {
-        $panierWhitData = $cartService->getFullCart();
-
+        $panierWhitData = $this->cartService->getFullCart();
         return $this->render('cart/index.html.twig', [
             'items' => $panierWhitData,
-            'total' => $cartService->getTotal($panierWhitData)
+            'total' => $this->cartService->getTotal($panierWhitData),
         ]);
     }
 
@@ -35,10 +37,10 @@ class CartController extends AbstractController
      * @Route("/panier/add", name="cart.add") 
      * @return void
      */
-    public function add(Request $request, CartService $cartService)
+    public function add(Request $request)
     {
         $id = $request->request->get('panier');
-        $cartService->add($id);
+        $this->cartService->add($id);
 
         $this->addFlash('notice', 'Votre produit a été ajouté au panier');
         return $this->redirect($request->server->get('HTTP_REFERER'));
@@ -48,9 +50,11 @@ class CartController extends AbstractController
      * @Route("/panier/remove/{id}", name="cart.remove")
      * @return void
      */
-    public function remove(int $id, CartService $cartService)
+    public function remove(int $id)
     {
-        $cartService->remove($id);
+        $this->cartService->remove($id);
+        $this->addFlash('notice', 'L\'article à bien été supprimer du panier');
         return $this->redirectToRoute("cart.index");
     }
+
 }
