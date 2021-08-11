@@ -26,7 +26,7 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank
-     * @Assert\Length(min=4, minMessage="Le nom d'utilisateur doit faire au moins 4 caractère", max=50)
+     * @Assert\Length(min=4, minMessage="Le nom d'utilisateur doit faire entre 4 et 50 caractère", max=50, maxMessage="Le nom d'utilisateur doit faire entre 4 et 50 caractère")
      * @ORM\Column(type="string", length=180)
      */
     private $username;

@@ -67,7 +67,7 @@ class SecurityController extends AbstractController
     {
         $status = $check->checkUidUser($id, $uid);
         if($status === null){
-          $this->addFlash('warning', 'Bonjour, Le compte que vous essayer de confirmé n\'existe pas');
+          $this->addFlash('warning', "Bonjour, Le compte que vous essayiez d'activer n'existe pas");
         }else{
          $this->addFlash('notice', $status);
         }
