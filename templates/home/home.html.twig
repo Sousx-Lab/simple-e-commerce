@@ -7,14 +7,5 @@
             <p class="lead">Subtitle</p>
         </div>
     </div>
-    <div class="container">
-        <h2>Nos Categories</h2>
-          <div class="row flex">
-                {% for category in categories %}
-                <div class="col-3">
-            {% include "categories/_category.html.twig" %}
-                </div>
-        {% endfor %}
-    </div>
-</div>
+    {% include "categories/_category.html.twig" %}
 {% endblock %}
