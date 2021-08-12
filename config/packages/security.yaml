@@ -1,46 +1,27 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        from_database:
+        app_user_provider:
             entity:
                 class: App\Entity\User
-                property: username
-
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: ~
+            anonymous: lazy
+            provider: app_user_provider
             logout:
-                path: /logout
-            pattern: ^/
-            user_checker: App\Security\UserChecker
-            
+                path: logout
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-            form_login: 
-                check_path: login
-            remember_me:
-                secret: '%kernel.secret%'
-                lifetime: 172800
-                path: /
-        secured_area:
-            form_login:
-                csrf_parameter: _csrf_security_token
-                csrf_token_id: _token
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/admin, roles: ROLE_ADMIN }
-        #- { path: ^/profile, roles: ROLE_USER }
-         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-
-    encoders:
-        App\Entity\User:
-            algorithm: auto
-            cost: 12
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

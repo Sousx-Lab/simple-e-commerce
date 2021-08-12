@@ -13,11 +13,10 @@ class HomeController extends AbstractController
      * @param CategoryRepository $repository
      * @return Response
      */
-    public function index(CategoryRepository $repository):Response
+    public function index(CategoryRepository $repository): Response
     {
-      $categories = $repository->findAll(); 
       return $this->render('home/home.html.twig',[
-        'categories' => $categories
+        'categories' => $repository->findAll(), 
       ]);  
     }
 }
