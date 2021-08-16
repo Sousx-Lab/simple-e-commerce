@@ -1,25 +1,25 @@
 <?php
-
-namespace App\Controller;
+namespace App\Controller\Security;
 
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserProfilController extends AbstractController {
+class UserProfileController extends AbstractController {
 
     /**
-     * @Route("/profile/", name="user.profile")
+     * @Route("/profile", name="user.profile")
      * @return Response
      */
     public function index()
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        if($this->getUser()){
-            return $this->render('profile/index.html.twig');
-        };        
+
+        return $this->render('profile/index.html.twig', [
+            'user' => $this->getUser()
+        ]);
+        
     }
 
 }

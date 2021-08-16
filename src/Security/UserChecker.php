@@ -18,7 +18,6 @@ class UserChecker implements UserCheckerInterface {
         /*if ($user->isDeleted()) {
             throw new AccountDeletedException('test');
         }*/
-        
     }
     
     public function checkPostAuth(UserInterface $user)
@@ -27,8 +26,8 @@ class UserChecker implements UserCheckerInterface {
             return;
         }
         
-        if(!$user->getIsConfirmed()){
-            throw new CustomUserMessageAuthenticationException('Veuillez valider votre compte');
+        if(!$user->getIsEnabled()){
+            throw new CustomUserMessageAuthenticationException('Your account is temporarily suspended');
         }
         
     }

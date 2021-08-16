@@ -1,77 +1,54 @@
 <?php
-
-namespace App\Controller;
+namespace App\Controller\Security;
 
 use App\Entity\User;
+use Ramsey\Uuid\Uuid;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Services\Notification\SignUpConfirmation;
-use App\Security\UserUidChecker;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
-    private $em;
+    private EntityManagerInterface $em;
 
-    /**
-     * @var SignUpConfirmation
-     */
-    private $email;
-
-    public function __construct(EntityManagerInterface $em, SignUpConfirmation $email)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
-        $this->email = $email;
     }
-    /**
-     * @Route("/inscription", name="security.signup")
-     */
-    public function signUp(Request $request, UserPasswordEncoderInterface $PasswordEncoder)
-    {   
-        $user = new User();
-        $form = $this->createForm(RegistrationType::class, $user);
 
+    /**
+     * @Route("/register", name="security.registration")
+     */
+    public function signUp(Request $request, UserPasswordEncoderInterface $PasswordEncoder): Response
+    {   
+
+        $user = new User();
+        
+        $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
            $password = $PasswordEncoder->encodePassword($user, $user->getPassword());
            $user->setPassword($password);
-           $user->setUid();
-           $user->setIsConfirmed(false);
+           $user->setUuid(Uuid::uuid4()->toString());
            $user->setIsEnabled(true);
 
            $this->em->persist($user);
            $this->em->flush();
 
-           $this->email->sendConfirmation($user);
            $this->addFlash('success', 'Votre compte à bien été créer');
+           $this->redirectToRoute('login');
         }
         return $this->render('security/signup.html.twig', [
             'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @param Request $id|null
-     * @param Request $uid
-     * @Route("/inscription/confirm/{uid}/{id}", name="signup.confirm")
-     */
-    public function signUpConfirmation(int $id, string $uid, UserUidChecker $check): Response
-    {
-        $status = $check->checkUidUser($id, $uid);
-        if($status === null){
-          $this->addFlash('warning', "Bonjour, Le compte que vous essayiez d'activer n'existe pas");
-        }else{
-         $this->addFlash('notice', $status);
-        }
-        return $this->render('security/signup.confirmation.html.twig', [
         ]);
     }
 
@@ -93,5 +70,6 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+       return; 
     }
 }

@@ -2,6 +2,9 @@
     "behat/transliterator": {
         "version": "v1.2.0"
     },
+    "brick/math": {
+        "version": "0.9.3"
+    },
     "cocur/slugify": {
         "version": "v3.2"
     },
@@ -231,6 +234,12 @@
     },
     "psr/log": {
         "version": "1.1.4"
+    },
+    "ramsey/collection": {
+        "version": "1.2.1"
+    },
+    "ramsey/uuid": {
+        "version": "4.2.1"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
