@@ -1,21 +1,21 @@
 easy_admin:
     list:
         max_results: 30
-    site_name: 'Guitares Shop.'
+    site_name: '%shop_name%'
     design:
         menu:
-            - label: 'Produits'
-              icon: 'cart'
+            - label: 'Products'
+              icon: 'cubes'
               children:
-                - { entity: 'Products', icon: 'item', default: true}
-            - label: 'Category'
-              icon: 'tag'
+                - { entity: 'Products', icon: 'cube', default: true, label: Products List}
+            - label: 'Categories'
+              icon: 'tags'
               children:
                 - { entity: 'Category', icon: 'tag'}
                 - { entity: 'SubCategory', icon: 'tag'}
-            - label: 'User'
-              icon : 'user'
+            - label: 'Users'
+              icon : 'id-card'
               children:
-                - { entity: 'User', icon: 'user' }
+                - { entity: 'User', icon: 'user', label: Users List }
     formats:
         date: 'd/m/Y'
