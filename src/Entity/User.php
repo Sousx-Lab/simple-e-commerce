@@ -217,4 +217,9 @@ class User implements UserInterface
         $this->isConfirmed = $isConfirmed;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->username;
+    }
 }
