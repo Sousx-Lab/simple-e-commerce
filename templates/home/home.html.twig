@@ -1,11 +1,9 @@
 {% extends "base.html.twig" %}
     {% block title  shop_name  %}
         {% block body %}
-        <div class="jumbotron jumbotron-fluid">
-          <div class="container">
-            <h1 class="display-4">Promotions</h1>
-            <p class="lead">Subtitle</p>
-        </div>
-    </div>
+
     {% include "categories/_category.html.twig" %}
+     
+    {% include "products/_products.html.twig" %}
+
 {% endblock %}

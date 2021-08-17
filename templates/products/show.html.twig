@@ -3,7 +3,6 @@
 {% block title product.name %}
 
 {% block body %}
-<div class="container-fluid">
     <div class="container mt-4">
         {% for message in app.flashes('success') %}
         <div class="alert alert-success">
@@ -39,33 +38,16 @@
             </div>
         </div>
     </div>
-</div>
 <div class="container mt-4">
     <p>
     </p>
     <div class="row">
         <div class="col-md-8">
-            <h2>Caractéristiques</h2>
-            <table class="table table-striped">
-                <tr>
-                    <td>Surface habitable</td>
-                </tr>
-                <tr>
-                    <td>Pièces</td>
-                </tr>
-                <tr>
-                    <td>Chambres</td>
-                </tr>
-                <tr>
-                    <td>Etage</td>
-                </tr>
-                <tr>
-                    <td>Chauffage</td>
-                </tr>
-            </table>
+            <h3>Caractéristiques</h3>
+            
         </div>
         <div class="col-md-4">
-            <h2>Spécificités</h2>
+            <h3>Spécificités</h3>
             <ul class="list-group">
             </ul>
         </div>

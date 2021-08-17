@@ -1,10 +1,10 @@
-<div class="container mt-2">
-    <h2>Nos Categories</h2>
-    <div class="row flex">
+
+    <div class="row d-flex">
+        <h2 class="pt-4 pb-4">Nos Categories</h2>
         {% for category in categories %}
         <div class="col-3">
-            <div class="card mb-4">
-                <img src="" alt="" style="width: 100%; height:auto;">
+            <div class="card mb-4 h-100">
+                {# <img src="" alt="" style="width: 100%; height:auto;"> #}
                 {% if category.picture %}
                 <a href="{{path ('subcategories.show', {slug: category.slug, id: category.id})}}">
                     <img src="{{ vich_uploader_asset (category, 'imgfile')}}" alt="" style="width: 100%; height:auto;">
@@ -12,16 +12,14 @@
                 {% else %}
                 <img src="" alt="" style="width: 100%; height:auto;">
                 {% endif %}
-                <img src="" alt="" style="width: 100%; height:auto;">
                 <div class="card-body">
-                    <h5 class="card-title">
+                    <h6 class="card-title">
                         <a
                             href="{{path ('subcategories.show', {slug: category.slug, id: category.id})}}">{{ category.name }}</a>
-                    </h5>
+                    </h6>
                     <p class="card-text"></p>
                     <div class="text-primary" style="font-size:2rem; font-weight: bold;"></div>
                 </div>
             </div>
         </div>
         {% endfor %}
-   </div>
