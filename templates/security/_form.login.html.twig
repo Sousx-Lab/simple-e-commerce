@@ -1,36 +1,40 @@
-<link href="{{ asset ('css/login.css') }}" rel="stylesheet">
-<div class="container mt-4">
-        <form class="form-signin" method="post" action="{{ path ('login')}}">
-                {% if error %}
-                <div class="alert alert-danger">
-                    {{ error.messageKey | trans(error.messagedata, 'security') }}
-                </div>
-            {% endif %}
-            <div class="form-group">
-                <label for="username">Nom d'utilisateur</label>
-                    <div class="input-group">
-                        <input type="text" id="email" name="email" placeholder="Votre email"class="form-control py-2 border-right-0 border" value="{{ last_username }}">
-                <span class="input-group-append">
-                    <div class="input-group-text bg-transparent"><i class="fas fa-user"></i></div>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Votre mot de passe</label>
-                    <div class="input-group">
-                        <input type="password" id="password" name="password" placeholder="Votre mot de passe" class="form-control py-2 border-right-0 border">
-                <span class="input-group-append">
-                    <div class="input-group-text bg-transparent mb-2"><i class="fas fa-key"></i></div>
-                    </span>
-                </div>
-                <label for="remember_me">Rester connecté</label>
-                <input type="checkbox" id="remember_me" name="_remember_me"/>
-             </div>
-            <input type="hidden" name="csrf_token" value="{{ csrf_token ('authenticate') }}">
-            <button type="submit" class="btn btn-lg btn-primary btn-block">Se connecter</button>
-        </form>
-        <div class="col text-center">
-        <a class="lg block" href="{{ path ('security.registration')}}"><strong>Créer un compte |</strong></a>
-        <a class="lg block" href="{{ path ('security.registration')}}"><strong>Mot de passe oublié ?</strong></a>
-     </div>
- </div>
+<div class="col-md-6 card mx-auto p-5">
+	<h1 class="mx-auto text-center pt-4">Se connecter</h1>
+	<form class="col-md-6 mx-auto border border-white" method="post" action="{{ path ('login')}}">
+		{% if error %}
+			<div class="alert alert-danger">
+				{{ error.messageKey | trans(error.messagedata, 'security') }}
+			</div>
+		{% endif %}
+		<div class="form-group mb-4">
+			<label for="username" class="pb-2">Nom d'utilisateur</label>
+			<div class="input-group">
+				<input type="text" id="email" name="email" placeholder="Votre email" class="form-control border-right-0 border" style="margin-bottom: 0px;" value="{{ last_username }}">
+				<span class="input-group-append input-group-text bg-transparent">
+					<i class="fas fa-user"></i>
+				</div>
+			</div>
+			<div class="form-group mb-4">
+				<label for="password" class="pb-2">Votre mot de passe</label>
+				<div class="input-group">
+					<input type="password" id="password" name="password" placeholder="Votre mot de passe" class="form-control border-right-0 border" style="margin-bottom: 0px;">
+					<span class="input-group-append input-group-text bg-transparent">
+						<i class="fas fa-key"></i>
+					</span>
+				</div>
+				<label for="remember_me" class="pt-2">Rester connecté</label>
+				<input type="checkbox" id="remember_me" name="_remember_me"/>
+			</div>
+			<input type="hidden" name="csrf_token" value="{{ csrf_token ('authenticate') }}">
+			<button type="submit" class="btn btn-lg btn-primary btn-block">Se connecter</button>
+		</form>
+		<div class="col-md-12 text-center mx-auto mx-auto mt-4">
+			<a class="lg block" href="{{ path ('security.registration')}}">
+				<strong>Créer un compte</strong>
+			</a>
+			<strong class="lg block text-primary">|</strong>
+			<a class="lg block" href="{{ path ('security.registration')}}">
+				<strong>Mot de passe oublié ?</strong>
+			</a>
+		</div>
+	</div>
