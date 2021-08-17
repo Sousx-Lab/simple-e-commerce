@@ -1,1 +1,1 @@
-#### Simple Ecommerce Symfony
+#### Simple Ecommerce with Symfony

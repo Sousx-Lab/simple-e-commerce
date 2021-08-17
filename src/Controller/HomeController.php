@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Repository\CategoryRepository;
+use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,10 +14,11 @@ class HomeController extends AbstractController
      * @param CategoryRepository $repository
      * @return Response
      */
-    public function index(CategoryRepository $repository): Response
+    public function index(CategoryRepository $categoryRepository, ProductsRepository $productsRepository): Response
     {
       return $this->render('home/home.html.twig',[
-        'categories' => $repository->findAll(), 
+        'categories' => $categoryRepository->findAll(),
+        'products'  => $productsRepository->findAll()
       ]);  
     }
 }

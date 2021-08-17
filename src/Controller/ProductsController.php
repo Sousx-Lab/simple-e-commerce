@@ -4,9 +4,7 @@ namespace App\Controller;
 use App\Entity\Products;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductsController extends AbstractController
@@ -42,7 +40,7 @@ class ProductsController extends AbstractController
      * @Route("/product/{slug}-{id}", name="product.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function show(Products $product, string $slug)
+    public function show(Products $product, string $slug): Response
     {
       if($product->getSlug() !== $slug){
         return $this->redirectToRoute('product.show', [
