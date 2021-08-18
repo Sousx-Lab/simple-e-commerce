@@ -3,30 +3,33 @@
 namespace App\Controller;
 
 use App\Services\Cart\CartService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
-    private $session;
 
-    private $cartService;
+    private CartService $cartService;
 
-    public function __construct(SessionInterface $session, CartService $cartService)
+    use TargetPathTrait;
+
+    public function __construct(CartService $cartService)
     {
-        $this->session = $session;
         $this->cartService = $cartService;
-        
     }
 
     /**
      * @Route("/panier", name="cart.index")
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         $panierWhitData = $this->cartService->getFullCart();
+
         return $this->render('cart/index.html.twig', [
             'items' => $panierWhitData,
             'total' => $this->cartService->getTotal($panierWhitData),
@@ -34,27 +37,44 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/panier/add", name="cart.add") 
-     * @return void
+     * @Route("/panier/add", name="cart.add", methods={"POST"}) 
+     * @return Response
      */
-    public function add(Request $request)
+    public function add(Request $request): Response
     {
-        $id = $request->request->get('panier');
-        $this->cartService->add($id);
+        if ($this->isCsrfTokenValid("add_cart_token", $request->request->get("add_cart"))) {
+            $id = $request->request->get('product_id');
 
-        $this->addFlash('notice', 'Votre produit a été ajouté au panier');
-        return $this->redirect($request->server->get('HTTP_REFERER'));
+            $this->cartService->add($id);
+
+            $this->addFlash('notice', 'Votre produit a été ajouté au panier');
+
+            if ($targetPath = $request->request->get('referer')) {
+                return new RedirectResponse($targetPath);
+            }
+        }
+
+        return $this->redirectToRoute('home');
     }
 
     /**
-     * @Route("/panier/remove/{id}", name="cart.remove")
-     * @return void
+     * @Route("/panier/remove", name="cart.remove", methods={"POST"})
+     * @return Response
      */
-    public function remove(int $id)
+    public function remove(Request $request): Response
     {
-        $this->cartService->remove($id);
-        $this->addFlash('notice', 'L\'article à bien été supprimer du panier');
+        if ($this->isCsrfTokenValid("remove_cart_token", $request->request->get("remove_cart"))) {
+            $id = $request->request->get('product_id');
+
+            if (null !== $id) {
+                $this->cartService->remove($id);
+            }
+
+            $this->addFlash('notice', 'L\'article à bien été supprimer du panier');
+
+            return $this->redirectToRoute("cart.index");
+        }
+
         return $this->redirectToRoute("cart.index");
     }
-
 }

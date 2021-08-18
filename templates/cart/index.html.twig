@@ -35,9 +35,11 @@
                         <td>{{item.quantity}}</td>
                         <td>{{item.product.price * item.quantity}}</td>
                         <td>
-                            <a href="{{path('cart.remove', {'id': item.product.id})}}" class="btn btn-danger btn-sm">
-                             <i class="fas fa-trash"></i>
-                            </a>
+                            <form method="POST" action="{{path ('cart.remove') }}">
+                            <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                            <input type="hidden" name="remove_cart" value="{{csrf_token ("remove_cart_token") }}">
+                            <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                        </form>
                         </td>
                     </tr>
                 {% endfor %}
@@ -51,7 +53,8 @@
             </tfoot>
         </table>
      {% else %}
-         <h3>Oupps! aucun produit dans le panier</h3>
+      
+         <h3 class="mt-5 text-center">Oupps! aucun produit dans le panier</h3>
      {% endif %}
  </div>
 {% endblock %}
