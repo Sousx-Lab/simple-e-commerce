@@ -27,7 +27,7 @@ class CartService {
      * @param integer $id
      * @return void
      */
-    public function add(int $id)
+    public function add(int $id): SessionInterface
     {
         $panier = $this->session->get('panier', []);
         
