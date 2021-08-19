@@ -5,7 +5,6 @@ easy_admin:
             list:
                 fields:
                     - "isEnabled"
-                    - "isConfirmed"
                     - "username"
                     - "roles" 
                     - "uid"

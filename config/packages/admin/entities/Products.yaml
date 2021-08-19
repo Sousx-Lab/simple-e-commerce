@@ -26,10 +26,11 @@ easy_admin:
                     - "sku"
             form:
                 fields:
-                    - { property: 'Enabled', type: 'checkbox'}
-                    - "name"
-                    - { property: 'Price', type: 'integer'}
-                    - "subcategory"
-                    - "tags"
-                    - { property: 'sku', type: 'integer'}
-                    - { property: 'pictureFiles', type: 'collection', label: 'Image', multiple : 'multiple', accept: 'image/*', type_options: {entry_type : 'file'}}
+                    - { property: 'Enabled', type: 'checkbox', label: 'Activé'}
+                    - { property: 'Quantity', type: 'integer', label: 'Quantité'}
+                    - { property: 'Name', type: 'text', label: 'Nom du produit'}
+                    - { property: 'Price', type: 'integer', label: 'Prix'}
+                    - { property: 'subcategory', label: 'Sous catégorie'}
+                    - { property: 'tags', label: 'Mots clé'}
+                    - { property: 'sku', type: 'integer', label: 'SKU produit'}
+                    - { property: 'pictureFiles', type: 'collection', label: 'Images', multiple : 'multiples', accept: 'image/*', type_options: {entry_type : 'file'}}
