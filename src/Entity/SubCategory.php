@@ -17,17 +17,17 @@ class SubCategory
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="subcategory")
      */
-    private $category;
+    private Category $category;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Products", mappedBy="subcategory")
@@ -69,7 +69,6 @@ class SubCategory
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
         return $this;
     }
 

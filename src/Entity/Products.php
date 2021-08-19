@@ -23,49 +23,47 @@ class Products
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $SKU;
+    private string $SKU;
 
     /**
-     * @var \Datetime $created_at
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private ?\DateTimeInterface $created_at = null;
 
     /**
-     * @var \DateTime $updated_at
      * @ORM\Column(type="datetime")
      */
-    private $updated_at;
+    private ?\DateTimeInterface $updated_at = null;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $price;
+    private int $price;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $tags;
+    private string $tags;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $enabled;
+    private bool $enabled;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
-    private $sold;
+    private $quantity;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\SubCategory", inversedBy="products")
@@ -140,13 +138,17 @@ class Products
      */
     public function onPrePersist()
     {
-        $this->created_at = new \DateTime('now');
+        if (null === $this->created_at) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
+        if (null === $this->updated_at) {
+            $this->setUpdatedAt(new \DateTime('now'));
+        }
     }
 
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
-
         return $this;
     }
 
@@ -211,15 +213,14 @@ class Products
         return $this;
     }
 
-    public function getSold(): ?bool
+    public function getQuantity(): int
     {
-        return $this->sold;
+        return $this->quantity;
     }
 
-    public function setSold(bool $sold): self
+    public function setQuantity(bool $quatity): self
     {
-        $this->sold = $sold;
-
+        $this->quantity = $quatity;
         return $this;
     }
 
