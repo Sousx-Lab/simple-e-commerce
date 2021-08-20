@@ -3,14 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"username"}, message="Le nom d'utilisateur n'est pas disponible")
  * @UniqueEntity(fields={"email"}, message="L'adresse email est déja utilisée")
+ * @ORM\HasLifecycleCallbacks
  */
 class User implements UserInterface
 {
@@ -39,7 +40,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
@@ -59,12 +60,12 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $uuid;
+    private ?string $uuid = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : true})
      */
-    private bool $isEnabled;
+    private bool $isEnabled = true;
 
 
     public function getId(): ?int
@@ -182,8 +183,20 @@ class User implements UserInterface
 
     public function setUuid(string $uuid): self
     {
-        $this->uuid = $uuid;
+        $this->uuid = $uuid;        
         return $this;
+    }
+
+    /**
+     * Gets triggered only on insert
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        if(!$this->getUuid()){
+            $this->setUuid(Uuid::uuid4()->__toString());
+        }
+        
     }
 
     public function getIsEnabled(): ?bool

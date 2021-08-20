@@ -7,30 +7,28 @@ easy_admin:
                     - "id"
                     - "Enabled"
                     - { property: 'picture.filename', type: 'image', base_path: '/media/products/' }
-                    - "name"
+                    - "Name"
                     - "Price"
                     - { property: 'created_at', type: 'date'}
-                    - "tags"
-                    - "subcategory"
-                    - "sku"
+                    - "Tags"
+                    - "Sku"
             show:
                 fields:
-                    - "id"
+                    - "ID"
                     - "Enabled"
                     - { property: 'picture.filename', type: 'image',base_path: '/media/products/' }
-                    - "name"
+                    - "Name"
                     - "Price"
                     - { property: 'created_at', type: 'date'}
-                    - "tags"
-                    - "subcategory"
-                    - "sku"
+                    - "Tags"
+                    - "Sku"
             form:
                 fields:
-                    - { property: 'Enabled', type: 'checkbox', label: 'Activé'}
-                    - { property: 'Quantity', type: 'integer', label: 'Quantité'}
-                    - { property: 'Name', type: 'text', label: 'Nom du produit'}
-                    - { property: 'Price', type: 'integer', label: 'Prix'}
-                    - { property: 'subcategory', label: 'Sous catégorie'}
-                    - { property: 'tags', label: 'Mots clé'}
-                    - { property: 'sku', type: 'integer', label: 'SKU produit'}
+                    - { property: 'Enabled', type: 'checkbox', label: 'is Enabled'}
+                    - { property: 'Quantity', type: 'integer', label: 'Quantity'}
+                    - { property: 'Name', type: 'text', label: 'Product Name'}
+                    - { property: 'Price', type: 'integer', label: 'Price'}
+                    - { property: 'tags', type: 'text', label: 'Keywords'}
+                    - { property: 'categories', label: 'Categories'}
+                    - { property: 'sku', type: 'integer', label: 'SKU product'}
                     - { property: 'pictureFiles', type: 'collection', label: 'Images', multiple : 'multiples', accept: 'image/*', type_options: {entry_type : 'file'}}

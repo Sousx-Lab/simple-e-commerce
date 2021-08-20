@@ -7,4 +7,11 @@ easy_admin:
                     - "isEnabled"
                     - "username"
                     - "roles" 
-                    - "uid"
+                    - "uuid"
+            form:
+                fields:
+                    - { property: 'username', type: 'text', label: 'Username'}
+                    - { property: 'email', type: 'email', label: 'Email'}
+                    - { property: 'password', type: 'password', label: 'Password'}
+                    - { property: 'confirmPassword', type: 'password', label: 'Confirme Password'}
+                    # - { property: 'roles', type: 'choice', type_options: { choices: { 'ROLE_USER': 'User', 'ROLE_ADMIN': 'Admin' } }, label: 'User Role'}

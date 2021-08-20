@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 
@@ -21,22 +21,17 @@ class Category
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\SubCategory", mappedBy="category")
-     */
-    private $subcategory;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $picture;
+    private string $picture;
 
     /**
      * @param File|null
@@ -45,17 +40,22 @@ class Category
      * )
      * @Vich\UploadableField(mapping="category_image", fileNameProperty="picture")
      */
-    private $imgfile;
+    private ?File $imgfile;
 
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTime
+     * @var \DateTimeinterface
      */
-    private $updatedAt;
+    private ?\DateTimeInterface $updatedAt;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Products::class, mappedBy="categories")
+     */
+    private $products;
 
     public function __construct()
     {
-        $this->subcategory = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,37 +78,6 @@ class Category
     public function getSlug(): string
     {
         return (new Slugify())->slugify($this->name);
-    }
-
-    /**
-     * @return Collection|SubCategory[]
-     */
-    public function getSubcategory(): Collection
-    {
-        return $this->subcategory;
-    }
-
-    public function addSubcategory(SubCategory $subcategory): self
-    {
-        if (!$this->subcategory->contains($subcategory)) {
-            $this->subcategory[] = $subcategory;
-            $subcategory->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSubcategory(SubCategory $subcategory): self
-    {
-        if ($this->subcategory->contains($subcategory)) {
-            $this->subcategory->removeElement($subcategory);
-            // set the owning side to null (unless already changed)
-            if ($subcategory->getCategory() === $this) {
-                $subcategory->setCategory(null);
-            }
-        }
-
-        return $this;
     }
 
     public function __toString()
@@ -159,6 +128,33 @@ class Category
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Products[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Products $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Products $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeCategory($this);
+        }
 
         return $this;
     }

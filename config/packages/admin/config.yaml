@@ -12,7 +12,6 @@ easy_admin:
               icon: 'tags'
               children:
                 - { entity: 'Category', icon: 'tag'}
-                - { entity: 'SubCategory', icon: 'tag'}
             - label: 'Users'
               icon : 'id-card'
               children:

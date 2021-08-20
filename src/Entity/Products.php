@@ -66,12 +66,6 @@ class Products
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\SubCategory", inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $subcategory;
-
-    /**
      * @var Picture|null
      */
     private $picture;
@@ -86,11 +80,17 @@ class Products
      *   @Assert\Image(mimeTypes="image/jpeg")})
      */
     private $pictureFiles;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products")
+     */
+    private $categories;
     
     
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,17 +224,6 @@ class Products
         return $this;
     }
 
-    public function getSubcategory(): ?SubCategory
-    {
-        return $this->subcategory;
-    }
-
-    public function setSubcategory(?SubCategory $subcategory): self
-    {
-        $this->subcategory = $subcategory;
-
-        return $this;
-    }
 
     public function __toString()
     {
@@ -312,6 +301,30 @@ class Products
            
         }
         $this->pictureFiles = $pictureFiles;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
+
         return $this;
     }
 }

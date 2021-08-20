@@ -7,7 +7,6 @@ easy_admin:
                     - "id"
                     - { property: 'picture', type: 'image', base_path : '/media/category'}
                     - "name"
-                    - "subcategory"
             form:
                 fields:
                     - { property: 'imgfile', type: 'vich_image', label: 'Image'}
