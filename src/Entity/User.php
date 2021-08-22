@@ -58,6 +58,11 @@ class User implements UserInterface
     private string $confirmPassword;
 
     /**
+     * @var string|null
+     */
+    private ?string $plainPassword = null;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private ?string $uuid = null;
@@ -214,5 +219,16 @@ class User implements UserInterface
     public function __toString(): string
     {
         return $this->username;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
     }
 }

@@ -29,11 +29,6 @@ class Category
     private string $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private string $picture;
-
-    /**
      * @param File|null
      * @Assert\Image(
      *     mimeTypes="image/jpeg"
@@ -41,7 +36,12 @@ class Category
      * @Vich\UploadableField(mapping="category_image", fileNameProperty="picture")
      */
     private ?File $imgfile;
-
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private string $picture;
+        
     /**
      * @ORM\Column(type="datetime")
      * @var \DateTimeinterface

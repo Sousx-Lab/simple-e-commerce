@@ -63,7 +63,7 @@ class Products
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;
+    private int $quantity = 0;
 
     /**
      * @var Picture|null
@@ -218,7 +218,7 @@ class Products
         return $this->quantity;
     }
 
-    public function setQuantity(bool $quatity): self
+    public function setQuantity(int $quatity): self
     {
         $this->quantity = $quatity;
         return $this;
