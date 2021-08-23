@@ -1,31 +1,25 @@
-{# {% for message in app.flashes('notice') %}
-    <div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        {{ message }}
-    </div>
-    {% endfor %} #}
-	<h2 class="pt-4 pb-3">Nos Porduits</h2>
-	{% for product in products %}
-		<div class="col-3">
-			<div class="card p-2 h-100">
-				{% if product.picture %}
-                <div style="width:500px; height:250px;">
-                    <a href="{{path ('product.show', {slug: product.slug, id: product.id})}}">
-						<img class="mx-5" src="{{ vich_uploader_asset (product.picture, 'imgfile')}}" alt="{{product.name}}" style="max-width:100%; max-height:100%; display:block; padding-top: 20px;">
-					</a>
-                </div>
-                    
-				{% endif %}
-                
-				<div class="card-body text-center">
-					<h6 class="card-title">
-						<a href="{{ path ('product.show', {slug: product.slug, id: product.id})}}">{{product.name}}</h6>
-					</a>
-					<p class="card-text">{{product.tags}}</p>
-					{% include "cart/_form.cart.html.twig" %}
+<div class="container">
+	<div class="row d-flex justify-content-start">
+		<h2 class="pt-4 pb-3">Nos Porduits</h2>
+		{% for product in products %}
+			<div class="col-3">
+				<div class="card p-2 h-100">
+					{% if product.picture %}
+						<div style="width:500px; height:250px;">
+							<a href="{{path ('product.show', {slug: product.slug, id: product.id})}}">
+								<img class="mx-5" src="{{ vich_uploader_asset (product.picture, 'imgfile')}}" alt="{{product.name}}" style="max-width:100%; max-height:100%; display:block; padding-top: 20px;">
+							</a>
+						</div>
+					{% endif %}
+					<div class="card-body text-center">
+						<h6 class="card-title">
+							<a href="{{ path ('product.show', {slug: product.slug, id: product.id})}}">{{product.name}}</h6>
+						</a>
+						<p class="card-text">{{ product.formattedPrice }}</p>
+						{% include "cart/_form.cart.html.twig" %}
+					</div>
 				</div>
 			</div>
-		</div>
-{% endfor %}
+		{% endfor %}
+	</div>
+</div>

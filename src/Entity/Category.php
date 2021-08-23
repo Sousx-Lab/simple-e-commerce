@@ -9,10 +9,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use DateTimeInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
  */
 class Category
 {
@@ -29,29 +31,44 @@ class Category
     private string $name;
 
     /**
-     * @param File|null
+     * @var File|null
      * @Assert\Image(
-     *     mimeTypes="image/jpeg"
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg"},
      * )
      * @Vich\UploadableField(mapping="category_image", fileNameProperty="picture")
      */
-    private ?File $imgfile;
+    private $imgfile;
     
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private string $picture;
-        
+    private ?string $picture = null;
+    
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTimeinterface
      */
-    private ?\DateTimeInterface $updatedAt;
+    private ?\DateTimeInterface $createdAt = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?\DateTimeInterface $updatedAt = null;
+    
 
     /**
      * @ORM\ManyToMany(targetEntity=Products::class, mappedBy="categories")
      */
     private $products;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $inMenu = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $isEnabled = true;
 
     public function __construct()
     {
@@ -98,10 +115,9 @@ class Category
     }
 
     /**
-     * Get mimeTypes="image/jpeg"
      * @return File|null
      */ 
-    public function getImgfile()
+    public function getImgfile(): ?File
     {
         return $this->imgfile;
     }
@@ -155,6 +171,60 @@ class Category
         if ($this->products->removeElement($product)) {
             $product->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of createdAt
+     */ 
+    public function getCreatedAt(): ?DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set the value of createdAt
+     * @return self
+     */ 
+    public function setCreatedAt($createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets triggered only on insert
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        if (null === $this->createdAt) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
+    }
+
+    public function getInMenu(): ?bool
+    {
+        return $this->inMenu;
+    }
+
+    public function setInMenu(bool $inMenu): self
+    {
+        $this->inMenu = $inMenu;
+
+        return $this;
+    }
+
+    public function getIsEnabled(): ?bool
+    {
+        return $this->isEnabled;
+    }
+
+    public function setIsEnabled(bool $isEnabled): self
+    {
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }

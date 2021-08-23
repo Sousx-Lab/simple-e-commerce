@@ -8,9 +8,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -32,7 +33,9 @@ class CategoryCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $imgfile = CollectionField::new('imgfile')->setEntryType(PictureType::class)->setLabel("Image");
+        $isEnabled = BooleanField::new('isEnabled')->setLabel("Enabled");
+        $inMenu = BooleanField::new('InMenu')->setLabel("View in menu");;
+        $imgfile = Field::new('imgfile')->setFormType(FileType::class)->setLabel("Image");
         $name = TextField::new('name');
         $id = IntegerField::new('id', 'ID');
         $picture = ImageField::new('picture')->setBasePath('media/category');;
@@ -40,13 +43,13 @@ class CategoryCrudController extends AbstractCrudController
         $products = AssociationField::new('products');
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $picture, $name];
+            return [$id, $isEnabled, $inMenu, $picture, $name];
         } elseif (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $name, $picture, $updatedAt, $products];
+            return [$id, $isEnabled, $inMenu, $name, $picture, $updatedAt, $products];
         } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$imgfile, $name];
+            return [$imgfile, $name, $isEnabled, $inMenu,];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$imgfile, $name];
+            return [$imgfile, $name, $isEnabled, $inMenu];
         }
     }
 }

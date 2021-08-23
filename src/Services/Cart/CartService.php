@@ -27,7 +27,7 @@ class CartService {
      * @param integer $id
      * @return void
      */
-    public function add(int $id): SessionInterface
+    public function add(int $id): void
     {
         $panier = $this->session->get('panier', []);
         
@@ -36,7 +36,7 @@ class CartService {
         }else {
             $panier[$id] = 1;
         }
-        return $this->session->set('panier', $panier);
+        $this->session->set('panier', $panier);
     }
 
     /**

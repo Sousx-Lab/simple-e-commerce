@@ -1,25 +1,29 @@
-<div class="row d-flex">
-	<h2 class="pt-4 pb-4">Nos Categories</h2>
-	{% for category in categories %}
-		<div class="col-3">
-			<div
-				class="card mb-4 h-100">
-				{# <img src="" alt="" style="width: 100%; height:auto;"> #}
-				{% if category.picture %}
-					<a href="/">
-						<img src="{{ vich_uploader_asset (category, 'imgfile')}}" alt="" style="width: 100%; height:auto;">
-					</a>
-				{% else %}
-					<img src="" alt="" style="width: 100%; height:auto;">
-				{% endif %}
-				<div class="card-body">
-					<h6 class="card-title">
-						<a href="/">{{ category.name }}</a>
-					</h6>
-					<p class="card-text"></p>
-					<div class="text-primary" style="font-size:2rem; font-weight: bold;"></div>
+<div class="container">
+	<div class="row d-flex justify-content-start">
+		{% if categories is not empty  %}
+			<h2 class="pt-4 pb-4">Nos Categories</h2>
+			{% for category in categories %}
+				<div class="col-3">
+					<div
+						class="card mb-4 h-100">
+						{# <img src="" alt="" style="width: 100%; height:auto;"> #}
+						{% if category.picture %}
+							<a href="/">
+								<img src="{{ vich_uploader_asset (category, 'imgfile')}}" alt="" style="width: 100%; height:auto;">
+							</a>
+						{% else %}
+							<img src="" alt="" style="width: 100%; height:auto;">
+						{% endif %}
+						<div class="card-body">
+							<h6 class="card-title">
+								<a href="/">{{ category.name }}</a>
+							</h6>
+							<p class="card-text"></p>
+							<div class="text-primary" style="font-size:2rem; font-weight: bold;"></div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-    
-	{% endfor %}
+			{% endfor %}
+		{% endif %}
+	</div>
+</div>
