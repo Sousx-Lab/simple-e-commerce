@@ -15,9 +15,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
-    
+
     /**
-     * @Route("/admin")
+     * @Route("/admin", name="route_admin")
      */
     public function index(): Response
     {
@@ -25,7 +25,7 @@ class DashboardController extends AbstractDashboardController
 
         return $this->redirect($routeBuilder->setController(ProductsCrudController::class)->generateUrl());
     }
-    
+
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
@@ -36,6 +36,7 @@ class DashboardController extends AbstractDashboardController
     {
         return Crud::new()
             ->setDateFormat('dd/MM/yyyy');
+
     }
 
     public function configureMenuItems(): iterable

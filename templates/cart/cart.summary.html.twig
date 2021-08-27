@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier / {{ shop_name }} {% endblock %}
+
+
+{% block body %}
+	<div class="container">
+		<div class="bg-light p-5">
+			<h1>Votre panier</h1>
+
+			{% if items %}
+				<table class="table ">
+					<thead>
+						<tr>
+							<th>Produit</th>
+							<th>Prix</th>
+							<th>Quantité</th>
+							<th>Total</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in items %}
+							<tr>
+								<td>{{item.product.name}}</td>
+								<td>{{item.product.formattedPrice}}</td>
+								<td>{{item.quantity}}</td>
+								<td>{{item.product.price * item.quantity}}</td>
+								<td>
+									<form method="POST" action="{{path ('cart.remove') }}">
+										<input type="hidden" name="product_id" value="{{ item.product.id }}">
+										<input type="hidden" name="remove_cart" value="{{csrf_token ("remove_cart_token") }}">
+										<button class="btn btn-danger btn-sm" type="submit">
+											<i class="fas fa-trash"></i>
+										</button>
+									</form>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3" class="text-right">Total :</td>
+							<td>{{ total}}</td>
+						</tr>
+					</tfoot>
+				</table>
+	
+				<div class="d-flex justify-content-end mb-4 mt-4">
+					<a class="btn btn-success" href="#">Paiement</a> 
+				</div>
+			{% else %}
+
+				<h3 class="mt-5 text-center">Oupps! aucun produit dans le panier</h3>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

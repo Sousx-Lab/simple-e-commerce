@@ -38,7 +38,7 @@ class CategoryCrudController extends AbstractCrudController
         $imgfile = Field::new('imgfile')->setFormType(FileType::class)->setLabel("Image");
         $name = TextField::new('name');
         $id = IntegerField::new('id', 'ID');
-        $picture = ImageField::new('picture')->setBasePath('media/category');;
+        $picture = ImageField::new('picture')->setBasePath('media/category');
         $updatedAt = DateTimeField::new('updatedAt');
         $products = AssociationField::new('products');
 

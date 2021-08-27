@@ -3,8 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!
-			{% endblock %}
+			{% block title %} {{ shop_name}}{% endblock %}
 		</title>
 		{% block stylesheets %}
 			<link rel="stylesheet" href="https://bootswatch.com/5/lux/bootstrap.min.css" crossorigin="anonymous">
@@ -39,7 +38,7 @@
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 								{% if is_granted('ROLE_ADMIN') %}
-									<a class="dropdown-item" href="/admin">
+									<a class="dropdown-item" href="{{ path ('route_admin') }}">
 										Admin
 										<i class="fas fa-cog"></i>
 									</a>
@@ -62,13 +61,13 @@
 		</nav>
 		<div class="row d-flex justify-content-center mt-1">
 			<div class="col-md-6">
-				{% for message in app.flashes('notice') %}
-					<div class="alert alert-success">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						{{ message }}
-					</div>
+				{% for label, messages in app.flashes %}
+					{% for message in messages %}
+						<div class="alert alert-dismissible alert-{{label}}">
+							<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+							<strong>{{ message }}</strong>
+						</div>
+					{% endfor %}
 				{% endfor %}
 			</div>
 		</div>
