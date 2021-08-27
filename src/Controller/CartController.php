@@ -30,7 +30,7 @@ class CartController extends AbstractController
     {
         $panierWhitData = $this->cartService->getFullCart();
 
-        return $this->render('cart/index.html.twig', [
+        return $this->render('cart/cart.summary.html.twig', [
             'items' => $panierWhitData,
             'total' => $this->cartService->getTotal($panierWhitData),
         ]);
@@ -47,7 +47,7 @@ class CartController extends AbstractController
 
             $this->cartService->add($id);
 
-            $this->addFlash('notice', 'Votre produit a été ajouté au panier');
+            $this->addFlash('success', "Votre produit a bien été ajouté au panier !");
 
             if ($targetPath = $request->request->get('referer')) {
                 return new RedirectResponse($targetPath);
@@ -70,7 +70,7 @@ class CartController extends AbstractController
                 $this->cartService->remove($id);
             }
 
-            $this->addFlash('notice', 'L\'article à bien été supprimer du panier');
+            $this->addFlash('info', 'L\'article à bien été supprimer du panier');
 
             return $this->redirectToRoute("cart.index");
         }

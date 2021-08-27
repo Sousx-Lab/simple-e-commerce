@@ -1,10 +1,11 @@
 <li class="nav-item">
 	<a href="{{ path ('cart.index')}}" class="nav-link">
 		{% if countItems.getAllItems > 0 %}
-			<i class="fa fa-1x fa-shopping-cart"></i>
-			<span class="cart" id="cartCount">{{ countItems.getAllItems }}</span>
+			<i class="fa fa-1x fa-shopping-cart" aria-hidden="true"></i>
+			<div class="count__items_cart">{{ countItems.getAllItems }}</div>
 		{% else %}
-			<i class="fa fa-shopping-cart"></i>
+			<div>
+				<i class="fa fa-shopping-cart"></i> Panier</div>
 		{% endif %}
 	</a>
 </li>
