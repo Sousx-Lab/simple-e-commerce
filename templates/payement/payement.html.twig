@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title  shop_name  %}
+    {% block meta %}
+        <meta name="description" content="Payement Simple ecommerce">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {% endblock %}
+    
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="/css/stripe.css">
+        {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+        <script src="/js/stripe_client.js" defer></script>
+    {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row col-6 mx-auto">
+            {% include "payement/_form_payement.html.twig" %}
+        </div>
+     </div>
+{% endblock %}
