@@ -40,12 +40,11 @@ class ProductsCrudController extends AbstractCrudController
         $price = IntegerField::new('Price');
         $tags = TextField::new('tags', 'Tags');
         $categories = AssociationField::new('categories', 'Categories');
-        $sku = Field::new('sku', 'SKU product');
+        $sku = TextField::new('sku', 'SKU product')->setRequired(true);
         $pictureFiles = CollectionField::new('pictures', 'Pictures')->setEntryType(PictureType::class)->setLabel("Image");
         $iD = TextField::new('ID');
         $pictureFilename = ImageField::new('picture.filename', 'Picture')->setBasePath('media/products');
         $createdAt = DateField::new('created_at');
-        $sku = TextField::new('Sku');
         $id = IdField::new('id', 'ID');
 
         if (Crud::PAGE_INDEX === $pageName) {

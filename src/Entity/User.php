@@ -25,10 +25,17 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank
-     * @Assert\Length(min=4, minMessage="Le nom d'utilisateur doit faire entre 4 et 50 caractère", max=50, maxMessage="Le nom d'utilisateur doit faire entre 4 et 50 caractère")
-     * @ORM\Column(type="string", length=180)
+     * @Assert\Length(max=30, maxMessage="The first name must not exceed 30 characters!")
+     * @ORM\Column(type="string", length=30)
      */
-    private string $username;
+    private string $firstName;
+
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max=30, maxMessage="The last name must not exceed 30 characters!")
+     * @ORM\Column(type="string", length=30)
+     */
+    private string $lastName;
 
     /**
      * @Assert\Email
@@ -72,6 +79,31 @@ class User implements UserInterface
      */
     private bool $isEnabled = true;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $zipCode;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $phoneNumber;
+
 
     public function getId(): ?int
     {
@@ -80,21 +112,38 @@ class User implements UserInterface
 
     /**
      * A visual identifier that represents this user.
-     *
      * @see UserInterface
      */
-    public function getUsername(): string
+
+    public function getUsername()
     {
-        return (string) $this->username;
+        return $this->email;
     }
 
-    public function setUsername(string $username): self
+    public function getFirstName(): string
     {
-        $this->username = $username;
+        return $this->firstName;
+    }
+    
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
 
         return $this;
     }
+ 
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
 
+    public function setLastName($lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+    
     public function getEmail(): ?string
     {
         return $this->email;
@@ -218,7 +267,7 @@ class User implements UserInterface
 
     public function __toString(): string
     {
-        return $this->username;
+        return $this->email;
     }
 
     public function getPlainPassword(): ?string
@@ -231,4 +280,65 @@ class User implements UserInterface
         $this->plainPassword = $plainPassword;
         return $this;
     }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(?string $zipCode): self
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(?string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
 }

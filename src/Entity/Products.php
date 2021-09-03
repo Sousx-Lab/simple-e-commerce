@@ -26,11 +26,13 @@ class Products
     private int $id;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private string $name;
 
     /**
+     * @Assert\NotBlank(message="The SKU should not be blank.")
      * @ORM\Column(type="string", length=255)
      */
     private string $SKU;
@@ -46,11 +48,13 @@ class Products
     private ?\DateTimeInterface $updated_at = null;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="integer")
      */
     private int $price;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private string $tags;
@@ -61,6 +65,7 @@ class Products
     private bool $enabled;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="integer")
      */
     private int $quantity = 0;

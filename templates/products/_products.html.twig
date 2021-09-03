@@ -1,5 +1,6 @@
 <div class="container">
 	<div class="row d-flex justify-content-center">
+	{% if categories is not empty  %}
 		<h2 class="mt-5 pb-3 text-center">Nos Porduits</h2>
 		{% for product in products %}
 			<div class="col-3">
@@ -21,5 +22,6 @@
 				</div>
 			</div>
 		{% endfor %}
+		{% endif %}
 	</div>
 </div>
