@@ -7,6 +7,7 @@
 /public/media/**
 /var/
 /vendor/
+/public/assets/*
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
@@ -20,3 +21,5 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+node_modules
+.parcel-cache

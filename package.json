@@ -1,0 +1,28 @@
+{
+  "name": "simple-ecommerce",
+  "version": "1.0.0",
+  "repository": "https://github.com/Sousx-Lab/simple-e-commerce.git",
+  "author": "Nassim Hattab <nssmhttb@gmail.com>",
+  "license": "MIT",
+  "app": "assets/js/app.js",
+  "targets": {
+    "app": {
+      "engines": {
+        "browsers": "Chrome 70"
+      },
+      "distDir": "public/assets/"
+    }
+  },
+  "scripts": {
+    "start": "parcel serve ./assets/js/app.js",
+    "build": "parcel build ./assets/js/app.js",
+    "watch": "parcel watch ./assets/js/app.js"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.0-rc.0",
+    "parcel": "^2.0.0-rc.0"
+  },
+  "dependencies": {
+    "@stripe/stripe-js": "^1.17.1"
+  }
+}
