@@ -4,13 +4,11 @@
 		<h2 class="mt-5 pb-3 text-center">Nos Porduits</h2>
 		{% for product in products %}
 			<div class="col-3">
-				<div class="card p-2 h-100">
+				<div class="card">
 					{% if product.picture %}
-						<div style="width:450px; height:250px;">
-							<a href="{{path ('product.show', {slug: product.slug, id: product.id})}}">
-								<img class="mx-5" src="{{ vich_uploader_asset (product.picture, 'imgfile')}}" alt="{{product.name}}" style="max-width:100%; max-height:100%; display:block; padding-top: 20px;">
-							</a>
-						</div>
+					<a href="{{path ('product.show', {slug: product.slug, id: product.id})}}">
+						<img class="card-img-top" src="{{ vich_uploader_asset (product.picture, 'imgfile')}}" alt="{{product.name}}" style="width: 100%; height:15vw; object-fit:cover;">
+					</a>
 					{% endif %}
 					<div class="card-body text-center">
 						<h6 class="card-title">

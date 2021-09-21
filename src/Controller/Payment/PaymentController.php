@@ -3,7 +3,6 @@
 namespace App\Controller\Payment;
 
 use App\Services\Payment\PaymentService;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -16,23 +15,28 @@ class PaymentController extends AbstractController
 
     /**
      * @Route("/payment", name="route_payment")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function payement(): Response
     {
-        return $this->render('payement/payement.html.twig');
+        $this->isGranted('ROLE_USER');
+        $user =  $this->getUser();
+        return $this->render('payment/payment.html.twig');
     }
 
     /**
      * @Route("/checkout", name="route_checkout", methods={"POST"})
      */
-    public function checkout(Request $request, PaymentService $paymentService)
+    public function checkout(PaymentService $paymentService)
     {
-        $paymentIntents = $paymentService->makePaymentIntent();
-        if (!$paymentIntents) {
-            throw new ServiceUnavailableHttpException(30, 'ERROR');
-        }
+        try {
+            $paymentIntents = $paymentService->makePaymentIntent();
 
-        return new JsonResponse(['client_secret' => $paymentIntents]);
+            return new JsonResponse(['client_secret' => $paymentIntents->client_secret]);
+        } catch (\Throwable $e) {
+
+            throw new ServiceUnavailableHttpException(30, $e->getMessage());
+        }
     }
 }

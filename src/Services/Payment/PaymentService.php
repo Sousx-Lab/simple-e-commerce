@@ -1,22 +1,26 @@
 <?php
+
 namespace App\Services\Payment;
 
 use App\Entity\User;
 use Stripe\StripeClient;
 use App\Services\Cart\CartService;
+use Stripe\PaymentIntent;
 
-class PaymentService{
+class PaymentService
+{
 
     private StripeClient $stipe;
 
     private CartService $cart;
 
-    public function __construct(StripeClient $stripe, CartService $cart) {
+    public function __construct(StripeClient $stripe, CartService $cart)
+    {
         $this->stipe = $stripe;
         $this->cart = $cart;
     }
 
-    public function makePaymentIntent(?User $user = null): string
+    public function makePaymentIntent(?User $user = null): ?PaymentIntent
     {
         $customer = $this->stipe->customers->create([
             'email' => 'user1@email.com',
@@ -24,12 +28,12 @@ class PaymentService{
         ]);
 
         $payementIntent = $this->stipe->paymentIntents->create([
-            'amount' => intval($this->cart->getTotal($this->cart->getFullCart()) *10),
+            'amount' => intval($this->cart->getTotal($this->cart->getFullCart()) * 10),
             'currency' => 'eur',
             'customer' => $customer
             // 'email' => 'user1@email.com',
             // 'name' => 'user1'
         ]);
-        return $payementIntent->client_secret;
+        return $payementIntent;
     }
 }

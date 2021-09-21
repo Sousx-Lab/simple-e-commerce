@@ -4,11 +4,11 @@
 			<h2 class="pt-4 pb-4 text-center">Nos Categories</h2>
 			{% for category in categories %}
 				<div class="col-3 pb-3">
-					<div class="card h-100">
+					<div class="card">
 						{# <img src="" alt="" style="width: 100%; height:auto;"> #}
 						{% if category.picture %}
 							<a href="/">
-								<img src="{{ vich_uploader_asset (category, 'imgfile')}}" alt="" style="width: 100%; height:450px;">
+								<img class="card-img-top" src="{{ vich_uploader_asset (category, 'imgfile')}}" alt="" style="width: 100%; height:25vw;object-fit:cover;">
 							</a>
 						{% else %}
 							<img src="" alt="" style="width: 100%; height:auto;">

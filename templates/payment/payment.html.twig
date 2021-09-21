@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title  shop_name  %}
+{% block meta %}
+	<meta name="description" content="Payement Simple ecommerce">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+{% endblock %}
+{% block body %}
+	<div class="container">
+		<div class="d-flex">
+			<div class="col-6 flex-column">
+            
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat minima quos dignissimos. Dignissimos asperiores maiores labore nulla veniam inventore sit quos aspernatur ipsa, adipisci beatae nisi laborum necessitatibus, assumenda maxime!</p>
+
+				{% include "payment/_form_payment.html.twig" %}
+			</div>
+			<div class="mx-auto col-4">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos nesciunt quas quidem omnis. Eum tenetur id cupiditate, quisquam quis ut laudantium hic aperiam minima vel sequi cum accusamus numquam nulla.</p>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
