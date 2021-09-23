@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Products;
+use App\Entity\Products\Products;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

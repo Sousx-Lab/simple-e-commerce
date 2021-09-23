@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Categories;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use DateTimeInterface;
+use Cocur\Slugify\Slugify;
+use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Products\Products;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\ORM\Mapping as ORM;
-use Cocur\Slugify\Slugify;
-use DateTimeInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")

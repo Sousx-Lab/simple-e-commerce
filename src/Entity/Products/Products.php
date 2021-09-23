@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Products;
 
 use App\Entity\Picture;
+use App\Entity\Categories\Category;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Cocur\Slugify\Slugify;
 
 
 /**
@@ -30,12 +31,6 @@ class Products
      * @ORM\Column(type="string", length=255)
      */
     private string $name;
-
-    /**
-     * @Assert\NotBlank(message="The SKU should not be blank.")
-     * @ORM\Column(type="string", length=255)
-     */
-    private string $SKU;
 
     /**
      * @ORM\Column(type="datetime")
@@ -62,13 +57,7 @@ class Products
     /**
      * @ORM\Column(type="boolean")
      */
-    private bool $enabled;
-
-    /**
-     * @Assert\NotBlank
-     * @ORM\Column(type="integer")
-     */
-    private int $quantity = 0;
+    private bool $enabled = false;
 
     /**
      * @var Picture|null
@@ -118,18 +107,6 @@ class Products
     public function getSlug(): string
     {
         return (new Slugify())->slugify($this->name);
-    }
-
-    public function getSKU(): ?string
-    {
-        return $this->SKU;
-    }
-
-    public function setSKU(string $SKU): self
-    {
-        $this->SKU = $SKU;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -217,18 +194,6 @@ class Products
 
         return $this;
     }
-
-    public function getQuantity(): int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quatity): self
-    {
-        $this->quantity = $quatity;
-        return $this;
-    }
-
 
     public function __toString()
     {

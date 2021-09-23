@@ -1,5 +1,6 @@
 <?php
-namespace App\Controller\Payment;
+namespace App\Controller\Shpping;
+
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
