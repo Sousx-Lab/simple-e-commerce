@@ -27,7 +27,7 @@ class ProductsCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Product')
             ->setEntityLabelInPlural('Products')
-            ->setSearchFields(['id', 'name', 'SKU', 'price', 'tags'])
+            ->setSearchFields(['id', 'name', 'price', 'tags'])
             ->setPaginatorPageSize(30);
     }
 
@@ -43,15 +43,16 @@ class ProductsCrudController extends AbstractCrudController
         $createdAt = DateField::new('created_at')->setFormat('d MMM Y  h:m');;
         $updatedAt = DateField::new('updated_at')->setFormat('d MMM Y  h:m');;
         $id = IdField::new('id', 'ID');
+        $productAttributs = AssociationField::new('productAttributs', 'Attributes');
 
         if (Crud::PAGE_INDEX === $pageName) {
             return [$name,$pictureFilename, $price, $enabled,  $createdAt, $updatedAt, $tags];
         } elseif (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $name,$pictureFilename, $price, $enabled,  $createdAt, $tags];
+            return [$id, $name,$pictureFilename, $price, $enabled,$productAttributs,  $createdAt, $tags];
         } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$enabled, $name, $price, $tags, $categories, $pictureFiles];
+            return [$enabled, $name, $price, $tags, $categories, $pictureFiles, $productAttributs];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$enabled, $name, $price, $tags, $categories, $pictureFiles];
+            return [$enabled, $name, $price, $tags, $categories, $productAttributs, $pictureFiles];
         }
     }
 }

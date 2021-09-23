@@ -2,7 +2,7 @@
 namespace App\Services\Cart;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use App\Repository\ProductsRepository;
+use App\Repository\Products\ProductsRepository;
 
 class CartService {
 

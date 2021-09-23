@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Categories\Category;
+use App\Entity\Products\ProductAttributs;
 use App\Entity\Products\Products;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,20 +42,22 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        $submenu1 = [
-            MenuItem::linkToCrud('Products List', 'fas fa-cube', Products::class),
+        $products = [
+            MenuItem::linkToCrud('Products', 'fas fa-cubes', Products::class),
+            MenuItem::linkToCrud('Product Variation', 'fas fa-tags', ProductAttributs::class),
+            
         ];
 
-        $submenu2 = [
+        $categories = [
             MenuItem::linkToCrud('Category', 'fas fa-tag', Category::class),
         ];
 
-        $submenu3 = [
+        $users = [
             MenuItem::linkToCrud('Users List', 'fas fa-user', User::class),
         ];
 
-        yield MenuItem::subMenu('Products', 'fas fa-cubes')->setSubItems($submenu1);
-        yield MenuItem::subMenu('Categories', 'fas fa-tags')->setSubItems($submenu2);
-        yield MenuItem::subMenu('Users', 'fas fa-id-card')->setSubItems($submenu3);
+        yield MenuItem::subMenu('Products', 'fas fa-cube')->setSubItems($products);
+        yield MenuItem::subMenu('Categories', 'fas fa-tags')->setSubItems($categories);
+        yield MenuItem::subMenu('Users', 'fas fa-id-card')->setSubItems($users);
     }
 }

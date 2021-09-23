@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Products\ProductsRepository")
  * @UniqueEntity("name")
  * @ORM\HasLifecycleCallbacks
  */
@@ -80,12 +80,18 @@ class Products
      * @ORM\ManyToMany(targetEntity="App\Entity\Categories\Category", inversedBy="products")
      */
     private $categories;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProductAttributs::class, mappedBy="product")
+     */
+    private $productAttributs;
     
     
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->productAttributs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -295,6 +301,36 @@ class Products
     public function removeCategory(Category $category): self
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductAttributs[]
+     */
+    public function getProductAttributs(): Collection
+    {
+        return $this->productAttributs;
+    }
+
+    public function addProductAttribut(ProductAttributs $productAttribut): self
+    {
+        if (!$this->productAttributs->contains($productAttribut)) {
+            $this->productAttributs[] = $productAttribut;
+            $productAttribut->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductAttribut(ProductAttributs $productAttribut): self
+    {
+        if ($this->productAttributs->removeElement($productAttribut)) {
+            // set the owning side to null (unless already changed)
+            if ($productAttribut->getProduct() === $this) {
+                $productAttribut->setProduct(null);
+            }
+        }
 
         return $this;
     }
