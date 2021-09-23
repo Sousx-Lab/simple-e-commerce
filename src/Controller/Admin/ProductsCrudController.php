@@ -40,13 +40,14 @@ class ProductsCrudController extends AbstractCrudController
         $categories = AssociationField::new('categories', 'Categories');
         $pictureFiles = CollectionField::new('pictures', 'Pictures')->setEntryType(PictureType::class)->setLabel("Image");
         $pictureFilename = ImageField::new('picture.filename', 'Picture')->setBasePath('media/products');
-        $createdAt = DateField::new('created_at');
+        $createdAt = DateField::new('created_at')->setFormat('d MMM Y  h:m');;
+        $updatedAt = DateField::new('updated_at')->setFormat('d MMM Y  h:m');;
         $id = IdField::new('id', 'ID');
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $name, $price, $enabled, $pictureFilename, $createdAt, $tags];
+            return [$name,$pictureFilename, $price, $enabled,  $createdAt, $updatedAt, $tags];
         } elseif (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $name, $price, $enabled, $pictureFilename, $createdAt, $tags];
+            return [$id, $name,$pictureFilename, $price, $enabled,  $createdAt, $tags];
         } elseif (Crud::PAGE_NEW === $pageName) {
             return [$enabled, $name, $price, $tags, $categories, $pictureFiles];
         } elseif (Crud::PAGE_EDIT === $pageName) {
