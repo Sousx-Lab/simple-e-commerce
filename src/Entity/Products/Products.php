@@ -1,8 +1,9 @@
 <?php
-
 namespace App\Entity\Products;
 
-use App\Entity\Picture;
+
+
+use App\Entity\Media\Picture;
 use App\Entity\Categories\Category;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
@@ -65,7 +66,7 @@ class Products
     private $picture;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="products", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Media\Picture", mappedBy="products", orphanRemoval=true, cascade={"persist"})
      */
     private $pictures;
 
@@ -76,7 +77,7 @@ class Products
     private $pictureFiles;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Categories\Category", inversedBy="products")
      */
     private $categories;
     

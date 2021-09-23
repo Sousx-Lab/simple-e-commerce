@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Picture;
+use App\Entity\Media\Picture;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
