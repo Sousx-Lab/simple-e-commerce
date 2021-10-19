@@ -14,7 +14,7 @@
 						<h6 class="card-title">
 							<a href="{{ path ('product.show', {slug: product.slug, id: product.id})}}">{{product.name}}</h6>
 						</a>
-						<p class="card-text">{{ product.formattedPrice }}</p>
+						<p class="card-text">{{ (product.price / 100)|format_currency('EUR', {max_fraction_digit: 2}) }}</p>
 						{% include "cart/_form.cart.html.twig" %}
 					</div>
 				</div>

@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Entity\Products;
 
 
-
+use App\Entity\Products\ProductVariantTheme;
 use App\Entity\Media\Picture;
 use App\Entity\Categories\Category;
 use Cocur\Slugify\Slugify;
@@ -81,17 +82,33 @@ class Products
      */
     private $categories;
 
+
     /**
-     * @ORM\OneToMany(targetEntity=ProductAttributs::class, mappedBy="product")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $productAttributs;
-    
-    
+    private ?string $manufacturePartNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $manufacturer;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $brandName;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Products\ProductVariations", mappedBy="product", orphanRemoval=true, cascade={"persist"})
+     */
+    private $productVariations;
+
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
         $this->categories = new ArrayCollection();
-        $this->productAttributs = new ArrayCollection();
+        $this->productVariations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,11 +190,6 @@ class Products
         return $this;
     }
 
-    public function getFormattedPrice(): string
-    {
-        return number_format($this->price, 0, '', ' ') .' €';
-    }
-
     public function getTags(): ?string
     {
         return $this->tags;
@@ -202,7 +214,7 @@ class Products
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }
@@ -217,7 +229,7 @@ class Products
 
     public function getPicture(): ?Picture
     {
-        if($this->pictures->isEmpty()){
+        if ($this->pictures->isEmpty()) {
             return null;
         }
 
@@ -251,7 +263,7 @@ class Products
      * Set the value of picture
      * @param Picture|null
      * @return self
-     */ 
+     */
     public function setPicture(Picture $picture): self
     {
         $this->picture = $picture;
@@ -260,7 +272,7 @@ class Products
 
     /**
      * @return mixed
-     */ 
+     */
     public function getPictureFiles()
     {
         return $this->pictureFiles;
@@ -268,14 +280,13 @@ class Products
 
     /**
      * @param mixed $pictureFiles
-     */ 
+     */
     public function setPictureFiles($pictureFiles)
     {
-        foreach($pictureFiles as $pictureFile){
-                $picture = new Picture();
-                $picture->setImgfile($pictureFile);
+        foreach ($pictureFiles as $pictureFile) {
+            $picture = new Picture();
+            $picture->setImgfile($pictureFile);
             $this->addPicture($picture);
-           
         }
         $this->pictureFiles = $pictureFiles;
         return $this;
@@ -305,33 +316,70 @@ class Products
         return $this;
     }
 
-    /**
-     * @return Collection|ProductAttributs[]
-     */
-    public function getProductAttributs(): Collection
+    public function getManufacturePartNumber(): ?string
     {
-        return $this->productAttributs;
+        return $this->manufacturePartNumber;
     }
 
-    public function addProductAttribut(ProductAttributs $productAttribut): self
+    public function setManufacturePartNumber($manufacturePartNumber): self
     {
-        if (!$this->productAttributs->contains($productAttribut)) {
-            $this->productAttributs[] = $productAttribut;
-            $productAttribut->setProduct($this);
+        $this->manufacturePartNumber = $manufacturePartNumber;
+
+        return $this;
+    }
+
+    public function getManufacturer(): ?string
+    {
+        return $this->manufacturer;
+    }
+
+    public function setManufacturer($manufacturer): self
+    {
+        $this->manufacturer = $manufacturer;
+
+        return $this;
+    }
+
+    public function getBrandName(): ?string
+    {
+        return $this->brandName;
+    }
+
+    public function setBrandName($brandName): self
+    {
+        $this->brandName = $brandName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductVariations[]
+     */
+    public function getProductVariations(): Collection
+    {
+        return $this->productVariations;
+    }
+
+    public function addProductVariation(ProductVariations $productVariation): self
+    {
+        if (!$this->productVariations->contains($productVariation)) {
+            $this->productVariations[] = $productVariation;
+            $productVariation->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeProductAttribut(ProductAttributs $productAttribut): self
+    public function removeProductVariation(ProductVariations $productVariation): self
     {
-        if ($this->productAttributs->removeElement($productAttribut)) {
+        if ($this->productVariations->removeElement($productVariation)) {
             // set the owning side to null (unless already changed)
-            if ($productAttribut->getProduct() === $this) {
-                $productAttribut->setProduct(null);
+            if ($productVariation->getProduct() === $this) {
+                $productVariation->setProduct(null);
             }
         }
 
         return $this;
     }
+
 }

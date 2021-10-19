@@ -4,8 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Categories\Category;
-use App\Entity\Products\ProductAttributs;
 use App\Entity\Products\Products;
+use App\Entity\Products\ProductVariations;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -44,20 +44,12 @@ class DashboardController extends AbstractDashboardController
     {
         $products = [
             MenuItem::linkToCrud('Products', 'fas fa-cubes', Products::class),
-            MenuItem::linkToCrud('Product Variation', 'fas fa-tags', ProductAttributs::class),
+            MenuItem::linkToCrud('Product Variations', 'fas fa-barcode', ProductVariations::class),
             
         ];
-
-        $categories = [
-            MenuItem::linkToCrud('Category', 'fas fa-tag', Category::class),
-        ];
-
-        $users = [
-            MenuItem::linkToCrud('Users List', 'fas fa-user', User::class),
-        ];
-
         yield MenuItem::subMenu('Products', 'fas fa-cube')->setSubItems($products);
-        yield MenuItem::subMenu('Categories', 'fas fa-tags')->setSubItems($categories);
-        yield MenuItem::subMenu('Users', 'fas fa-id-card')->setSubItems($users);
+        yield MenuItem::linkToCrud('Category', 'fas fa-tag', Category::class);
+        yield MenuItem::linkToCrud('Customers', 'fas fa-users', User::class);
+        
     }
 }

@@ -24,9 +24,9 @@
 								<td><img class="pe-2" src="{{ vich_uploader_asset (item.product.picture, 'imgfile')}}" alt="" style="width: 18%; height:4vw; object-fit:cover;">
 									{{item.product.name}}
 								</td>
-								<td>{{item.product.formattedPrice}}</td>
+								<td>{{(item.product.price / 100)|format_currency('EUR', {max_fraction_digit: 2})}}</td>
 								<td>{{item.quantity}}</td>
-								<td>{{item.product.price * item.quantity}}</td>
+								<td>{{ (item.product.price / 100)|format_currency('EUR', {max_fraction_digit: 2}) }}</td>
 								<td>
 									<form method="POST" action="{{path ('cart.remove') }}">
 										<input type="hidden" name="product_id" value="{{ item.product.id }}">
@@ -42,7 +42,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="3" class="text-right">Total :</td>
-							<td>{{ total}}</td>
+							<td>{{ (total / 100)|format_currency('EUR', {max_fraction_digit: 2}) }}</td>
 						</tr>
 					</tfoot>
 				</table>

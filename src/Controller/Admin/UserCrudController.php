@@ -14,6 +14,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Filter\Type\ChoiceFilterType;
+use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserCrudController extends AbstractCrudController
@@ -55,7 +57,6 @@ class UserCrudController extends AbstractCrudController
         $id = IntegerField::new('id', 'ID');
         $roles = ChoiceField::new('roles')->allowMultipleChoices(true)->setChoices(['Admin' => 'ROLE_ADMIN'])
             ->setRequired(false)->setHelp('If the user is not an Admin, leave the value blank');
-
         $uuid = TextField::new('uuid');
         $isEnabled = BooleanField::new('isEnabled');
 
